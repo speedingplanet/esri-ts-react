@@ -5,6 +5,7 @@ import ComponentProps from './ComponentProps';
 import ComponentState from './ComponentState';
 import EffectHook from './EffectHook';
 import EventHandling from './EventHandling';
+import FormWidgets from './FormWidgets';
 
 export default function DemosView(): JSX.Element {
   return (
@@ -57,6 +58,14 @@ export default function DemosView(): JSX.Element {
                 Effect Hook
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/demos/form-widgets"
+                activeClassName="font-weight-bold"
+              >
+                Form Widgets
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="col">
@@ -74,6 +83,9 @@ export default function DemosView(): JSX.Element {
           </Route>
           <Route path="/demos/effect-hook">
             <EffectHook />
+          </Route>
+          <Route path="/demos/form-widgets">
+            <FormWidgets initialValue="Brinda" />
           </Route>
         </div>
       </div>
