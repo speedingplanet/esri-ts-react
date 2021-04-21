@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, Route } from 'react-router-dom';
+import ComponentCommunication from './ComponentCommunication';
 import ComponentProps from './ComponentProps';
 import ComponentState from './ComponentState';
 import EventHandling from './EventHandling';
@@ -39,6 +40,14 @@ export default function DemosView(): JSX.Element {
                 Component Props
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/demos/component-communication"
+                activeClassName="font-weight-bold"
+              >
+                Component Communication
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="col">
@@ -50,6 +59,9 @@ export default function DemosView(): JSX.Element {
           </Route>
           <Route path="/demos/component-props">
             <ComponentProps />
+          </Route>
+          <Route path="/demos/component-communication">
+            <ComponentCommunication />
           </Route>
         </div>
       </div>
