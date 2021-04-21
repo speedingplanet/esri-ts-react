@@ -12,3 +12,4 @@
 * [React event types](https://stackoverflow.com/questions/42081549/typescript-react-event-types)
 * [Fetching data with React hooks](https://www.robinwieruch.de/react-hooks-fetch-data)
 * [React testing library](https://testing-library.com/docs/react-testing-library/intro)
+* [Complete guide to useEffect](https://overreacted.io/a-complete-guide-to-useeffect/)
