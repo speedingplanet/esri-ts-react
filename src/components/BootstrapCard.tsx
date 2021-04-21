@@ -4,6 +4,8 @@ import classNames from 'classnames';
 interface BootstrapCardProps {
   title: string;
   children: ReactNode;
+  // ? means optional
+  // titleLevel: string | undefined
   titleLevel?: string;
   headerClasses?: string;
   bodyClasses?: string;
