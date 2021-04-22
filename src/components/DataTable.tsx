@@ -15,6 +15,11 @@ export interface SortConfig {
   lastSortDirection: SortDirection;
 }
 
+// <T>
+// <T extends Element>
+// <T = HTMLElement>
+// <T extends Element = HTMLElement>
+
 interface DataTableProps<T extends ZippayRecord = ZippayRecord> {
   data: T[];
   columns: ColumnConfig[];
@@ -80,6 +85,7 @@ export default function DataTable( {
   );
 }
 
+// Pick<SomeType, 'props' | 'from' | 'type'>
 type DataTableRowProps<T extends ZippayRecord = ZippayRecord> = Pick<
   DataTableProps,
   'columns' | 'selectRow'
@@ -91,10 +97,12 @@ function DataTableRow( {
   selectRow = () => null,
 }: DataTableRowProps ): ReactElement {
   return (
-    <tr>
+    <tr onClick={() => selectRow( record )}>
       {columns.map( ( column ) => (
-        <td key={column.field} onClick={() => selectRow( record )}>
+        <td key={column.field}>
+          {/* 2nd argument could be 'address.state', ['address', 'state'] */}
           {lodashGet( record, column.field )}
+          {/* {record[column.field as keyof ZippayRecord]} */}
         </td>
       ) )}
     </tr>
@@ -129,7 +137,12 @@ interface SortIndicatorProps {
 function SortIndicator( { sortConfig, column }: SortIndicatorProps ) {
   let indicator = '';
   if ( sortConfig.sortField === column.field ) {
-    indicator = sortConfig.lastSortDirection === 'asc' ? '🔼' : '🔽';
+    // indicator = sortConfig.lastSortDirection === 'asc' ? '🔼' : '🔽';
+    if ( sortConfig.lastSortDirection === 'asc' ) {
+      indicator = '🔼';
+    } else {
+      indicator = '🔽';
+    }
   }
   return <span>&nbsp;{indicator}</span>;
 }

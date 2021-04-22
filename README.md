@@ -13,6 +13,7 @@
 * [Fetching data with React hooks](https://www.robinwieruch.de/react-hooks-fetch-data)
 * [React testing library](https://testing-library.com/docs/react-testing-library/intro)
 * [Complete guide to useEffect](https://overreacted.io/a-complete-guide-to-useeffect/)
+* [TypeScript Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
 
 ## Notes
 

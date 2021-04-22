@@ -57,10 +57,21 @@ export default function UsersList( {
       <table className="table table-striped table-hover">
         <thead>
           <tr>
-            <th onClick={() => sortUsers( 'displayName' )}>Name</th>
-            <th onClick={() => sortUsers( 'email' )}>Email</th>
-            <th onClick={() => sortUsers( 'address.city' )}>City</th>
-            <th onClick={() => sortUsers( 'address.state' )}>State</th>
+            <th className="clickable" onClick={() => sortUsers( 'displayName' )}>
+              Name
+            </th>
+            <th className="clickable" onClick={() => sortUsers( 'email' )}>
+              Email
+            </th>
+            <th className="clickable" onClick={() => sortUsers( 'address.city' )}>
+              City
+            </th>
+            <th
+              className="clickable"
+              onClick={() => sortUsers( 'address.state' )}
+            >
+              State
+            </th>
           </tr>
         </thead>
         <tbody>
