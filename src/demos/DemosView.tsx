@@ -12,6 +12,7 @@ import ReduxContainer from './redux-counter-tk/ReduxContainer';
 import ContextDemo from './ContextDemo';
 import EffectExamples from './EffectExamples';
 import AsyncEffect from './AsyncEffect';
+import RoutingWithParams from './RoutingWithParams';
 
 export default function DemosView(): JSX.Element {
   return (
@@ -120,6 +121,14 @@ export default function DemosView(): JSX.Element {
                 Redux Counter
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/demos/route-params"
+                activeClassName="font-weight-bold"
+              >
+                Route Parameters
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="col">
@@ -158,6 +167,9 @@ export default function DemosView(): JSX.Element {
           </Route>
           <Route path="/demos/redux-counter">
             <ReduxContainer />
+          </Route>
+          <Route path="/demos/route-params">
+            <RoutingWithParams />
           </Route>
         </div>
       </div>

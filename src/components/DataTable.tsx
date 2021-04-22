@@ -31,6 +31,7 @@ export default function DataTable( {
   data,
   columns,
   sortData,
+  selectRow,
 }: DataTableProps ): ReactElement {
   const [ sortConfig, setSortConfig ] = useState<SortConfig>( {
     sortField: '',
@@ -78,7 +79,12 @@ export default function DataTable( {
       </thead>
       <tbody>
         {displayData.map( ( record ) => (
-          <DataTableRow columns={columns} record={record} key={record.id} />
+          <DataTableRow
+            columns={columns}
+            record={record}
+            key={record.id}
+            selectRow={selectRow}
+          />
         ) )}
       </tbody>
     </table>
