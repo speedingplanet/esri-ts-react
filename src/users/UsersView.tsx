@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { users } from '@speedingplanet/rest-server';
+import React, { useState, useEffect } from 'react';
+import { users, dao } from '@speedingplanet/rest-server';
 import UsersList from './UsersList';
 import { Route, useRouteMatch, NavLink } from 'react-router-dom';
 import UsersDataTable from './UsersDataTable';
@@ -14,11 +14,19 @@ export interface SortConfig {
 }
 
 export default function UsersView(): JSX.Element {
+  const [ asyncUsers, setAsyncUsers ] = useState( [] );
   const [ sortConfig, setSortConfig ] = useState<SortConfig>( {
     sortField: '',
     lastSortField: '',
     lastSortDirection: 'asc',
   } );
+
+  /*
+  Create an effect that calls dao.findAllUsers()
+  which returns an object that looks like this: {data: User[], response: Response}
+  Get the data property, set the AsyncUsers state to the data property
+  ***=== DON'T FORGET TO ADD YOUR DEPENDENCIES ARRAY [] ===***
+  */
 
   const urlPrefix = useRouteMatch().url;
 
@@ -64,6 +72,11 @@ export default function UsersView(): JSX.Element {
                   UsersDataTable
                 </NavLink>
               </li>
+              <li className="list-inline-item">
+                <NavLink to={urlPrefix + '/users-data-table-async'}>
+                  UsersDataTable (asynchronously)
+                </NavLink>
+              </li>
               <li className="list-inline-item">Add User</li>
             </ul>
           </nav>
@@ -80,6 +93,9 @@ export default function UsersView(): JSX.Element {
           </Route>
           <Route path={urlPrefix + '/users-data-table'}>
             <UsersDataTable users={users} columns={columns} />
+          </Route>
+          <Route path={urlPrefix + '/users-data-table-async'}>
+            <UsersDataTable users={asyncUsers} columns={columns} />
           </Route>
         </div>
       </div>
