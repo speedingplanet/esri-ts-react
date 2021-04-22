@@ -8,6 +8,8 @@ import EventHandling from './EventHandling';
 import FormWidgets from './FormWidgets';
 import ParentChildCommunication from './ParentChildCommunication';
 import RenderList from './RenderList';
+import ReduxContainer from './redux-counter-tk/ReduxContainer';
+import ContextDemo from './ContextDemo';
 
 export default function DemosView(): JSX.Element {
   return (
@@ -84,6 +86,22 @@ export default function DemosView(): JSX.Element {
                 Rendering a list of data
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/demos/context-demo"
+                activeClassName="font-weight-bold"
+              >
+                Context Demo
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/demos/redux-counter"
+                activeClassName="font-weight-bold"
+              >
+                Redux Counter
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="col">
@@ -110,6 +128,12 @@ export default function DemosView(): JSX.Element {
           </Route>
           <Route path="/demos/render-list">
             <RenderList />
+          </Route>
+          <Route path="/demos/context-demo">
+            <ContextDemo />
+          </Route>
+          <Route path="/demos/redux-counter">
+            <ReduxContainer />
           </Route>
         </div>
       </div>
