@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { User } from '@speedingplanet/rest-server';
 import { orderBy } from 'lodash';
 import { SortConfig } from './UsersView';
