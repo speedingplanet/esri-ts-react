@@ -27,12 +27,12 @@ interface DataTableProps<T extends ZippayRecord = ZippayRecord> {
   selectRow?: ( record: T ) => void;
 }
 
-export default function DataTable( {
+export default function DataTable<T extends ZippayRecord>( {
   data,
   columns,
   sortData,
   selectRow,
-}: DataTableProps ): ReactElement {
+}: DataTableProps<T> ): ReactElement {
   const [ sortConfig, setSortConfig ] = useState<SortConfig>( {
     sortField: '',
     lastSortField: '',
@@ -92,16 +92,18 @@ export default function DataTable( {
 }
 
 // Pick<SomeType, 'props' | 'from' | 'type'>
-type DataTableRowProps<T extends ZippayRecord = ZippayRecord> = Pick<
-  DataTableProps,
+type DataTableRowProps<T extends ZippayRecord> = Pick<
+  DataTableProps<T>,
   'columns' | 'selectRow'
-> & { record: T };
+> & {
+  record: T;
+};
 
-function DataTableRow( {
+function DataTableRow<T extends ZippayRecord>( {
   columns,
   record,
   selectRow = () => null,
-}: DataTableRowProps ): ReactElement {
+}: DataTableRowProps<T> ): ReactElement {
   return (
     <tr onClick={() => selectRow( record )}>
       {columns.map( ( column ) => (
