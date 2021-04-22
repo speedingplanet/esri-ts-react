@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { users, dao } from '@speedingplanet/rest-server';
+import { users, dao, User } from '@speedingplanet/rest-server';
 import UsersList from './UsersList';
 import { Route, useRouteMatch, NavLink } from 'react-router-dom';
 import UsersDataTable from './UsersDataTable';
@@ -14,7 +14,7 @@ export interface SortConfig {
 }
 
 export default function UsersView(): JSX.Element {
-  const [ asyncUsers, setAsyncUsers ] = useState( [] );
+  const [ asyncUsers, setAsyncUsers ] = useState<User[]>( [] );
   const [ sortConfig, setSortConfig ] = useState<SortConfig>( {
     sortField: '',
     lastSortField: '',
@@ -27,6 +27,10 @@ export default function UsersView(): JSX.Element {
   Get the data property, set the AsyncUsers state to the data property
   ***=== DON'T FORGET TO ADD YOUR DEPENDENCIES ARRAY [] ===***
   */
+
+  useEffect( () => {
+    dao.findAllUsers( { _delay: 3000 } ).then( ( { data } ) => setAsyncUsers( data ) );
+  }, [] );
 
   const urlPrefix = useRouteMatch().url;
 
