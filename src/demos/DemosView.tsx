@@ -10,6 +10,8 @@ import ParentChildCommunication from './ParentChildCommunication';
 import RenderList from './RenderList';
 import ReduxContainer from './redux-counter-tk/ReduxContainer';
 import ContextDemo from './ContextDemo';
+import EffectExamples from './EffectExamples';
+import AsyncEffect from './AsyncEffect';
 
 export default function DemosView(): JSX.Element {
   return (
@@ -56,10 +58,26 @@ export default function DemosView(): JSX.Element {
             </li>
             <li>
               <NavLink
+                to="/demos/effect-examples"
+                activeClassName="font-weight-bold"
+              >
+                Effect examples
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/demos/effect-hook"
                 activeClassName="font-weight-bold"
               >
                 Effect Hook
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/demos/async-effect"
+                activeClassName="font-weight-bold"
+              >
+                Async Effect
               </NavLink>
             </li>
             <li>
@@ -119,6 +137,12 @@ export default function DemosView(): JSX.Element {
           </Route>
           <Route path="/demos/effect-hook">
             <EffectHook />
+          </Route>
+          <Route path="/demos/effect-examples">
+            <EffectExamples />
+          </Route>
+          <Route path="/demos/async-effect">
+            <AsyncEffect />
           </Route>
           <Route path="/demos/form-widgets">
             <FormWidgets initialValue="Brinda" />
