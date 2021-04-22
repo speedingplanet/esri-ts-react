@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { BrowserRouter, Link, NavLink, Route } from 'react-router-dom';
 import DemosView from './demos/DemosView';
 import TransactionsView from './transactions/TransactionsView';
 import UsersView from './users/UsersView';
@@ -21,13 +21,19 @@ function App(): JSX.Element {
           <div className="col">
             <ul className="list-inline">
               <li className="list-inline-item">
-                <Link to="/demos">Demos</Link>
+                <NavLink to="/demos" activeClassName="font-weight-bold">
+                  Demos
+                </NavLink>
               </li>
               <li className="list-inline-item">
-                <Link to="/users">Users</Link>
+                <NavLink to="/users" activeClassName="font-weight-bold">
+                  Users
+                </NavLink>
               </li>
               <li className="list-inline-item">
-                <Link to="/transactions">Transactions</Link>
+                <NavLink to="/transactions" activeClassName="font-weight-bold">
+                  Transactions
+                </NavLink>
               </li>
             </ul>
           </div>
