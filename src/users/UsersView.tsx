@@ -4,6 +4,7 @@ import UsersList from './UsersList';
 import { Route, useRouteMatch, NavLink } from 'react-router-dom';
 import UsersDataTable from './UsersDataTable';
 import { ColumnConfig } from '../components/DataTable';
+import UserDetailsWrapper from './UserDetailsWrapper';
 
 export type SortDirection = 'asc' | 'desc';
 
@@ -100,6 +101,9 @@ export default function UsersView(): JSX.Element {
           </Route>
           <Route path={urlPrefix + '/users-data-table-async'}>
             <UsersDataTable users={asyncUsers} columns={columns} />
+          </Route>
+          <Route path={urlPrefix + '/details/:userId'}>
+            <UserDetailsWrapper />
           </Route>
         </div>
       </div>
