@@ -20,48 +20,42 @@ module.exports = {
   extends: [
     'standard',
     'standard-with-typescript',
-    // 'plugin:@typescript-eslint/recommended',
     'react-app',
     'react-app/jest',
     'plugin:react-hooks/recommended',
   ],
   rules: {
     'array-bracket-spacing': [ 'error', 'always' ],
-    // '@typescript-eslint/array-bracket-spacing': [ 'error', 'always' ],
-    'comma-dangle': [ 'error', 'always-multiline' ],
+    // 'comma-dangle': [ 'error', 'always-multiline' ],
+    'comma-dangle': 'off',
     '@typescript-eslint/comma-dangle': [ 'error', 'always-multiline' ],
-    indent: [ 'error', 2, { MemberExpression: 1 } ],
+    // indent: [ 'error', 2, { MemberExpression: 1 } ],
+    indent: 'off',
     '@typescript-eslint/indent': [ 'error', 2, { MemberExpression: 1 } ],
     'max-len': [ 'error', { code: 90, comments: 120 } ],
-    // '@typescript-eslint/max-len': [ 'error', { code: 90, comments: 120 } ],
     'newline-per-chained-call': [ 'error', { ignoreChainWithDepth: 2 } ],
-    /*
-    '@typescript-eslint/newline-per-chained-call': [
-      'error',
-      { ignoreChainWithDepth: 2 },
-    ],
-    */
-    'object-curly-spacing': [ 'error', 'always' ],
+    // 'object-curly-spacing': [ 'error', 'always' ],
+    'object-curly-spacing': 'off',
     '@typescript-eslint/object-curly-spacing': [ 'error', 'always' ],
     'object-property-newline': [
       'error',
       { allowAllPropertiesOnSameLine: true },
     ],
-    /*
-    '@typescript-eslint/object-property-newline': [
-      'error',
-      { allowAllPropertiesOnSameLine: true },
-    ],
-    */
     'prefer-const': 'off',
-    '@typescript-eslint/prefer-const': 'off',
-    semi: [ 'error', 'always' ],
+    // semi: [ 'error', 'always' ],
+    semi: 'off',
     '@typescript-eslint/semi': [ 'error', 'always' ],
-    'space-before-function-paren': [ 'error', 'never' ],
+    // 'space-before-function-paren': [ 'error', 'never' ],
+    'space-before-function-paren': 'off',
     '@typescript-eslint/space-before-function-paren': [ 'error', 'never' ],
     'space-in-parens': [ 'error', 'always' ],
-    // '@typescript-eslint/space-in-parens': [ 'error', 'always' ],
-    // '@babel/semi': 'warn',
+    '@typescript-eslint/member-delimiter-style': [
+      'error',
+      {
+        multiline: { delimiter: 'semi' },
+      },
+    ],
+    '@typescript-eslint/explicit-function-return-type': [ 'warn' ],
   },
   ignorePatterns: [ 'node_modules' ],
 };
