@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 import DemosView from './demos/DemosView';
+import ExperimentsView from './experiments/ExperimentsView';
 import TransactionsView from './transactions/TransactionsView';
 import UsersView from './users/UsersView';
 
@@ -29,6 +30,9 @@ function App(): JSX.Element {
               <li className="list-inline-item">
                 <Link to="/transactions">Transactions</Link>
               </li>
+              <li className="list-inline-item">
+                <Link to="/experiments">Experiments</Link>
+              </li>
             </ul>
           </div>
         </nav>
@@ -40,6 +44,9 @@ function App(): JSX.Element {
         </Route>
         <Route path="/transactions">
           <TransactionsView />
+        </Route>
+        <Route path="/experiments">
+          <ExperimentsView />
         </Route>
       </main>
     </BrowserRouter>
