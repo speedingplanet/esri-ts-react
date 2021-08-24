@@ -7,15 +7,15 @@ interface FormWidgetsProps {
 export default function FormWidgets( {
   initialValue,
 }: FormWidgetsProps ): ReactElement {
-  const [ userName, setUserName ] = useState( initialValue || '' );
+  const [ userName, setUserName ] = useState( initialValue ?? '' );
   const [ ucUserName, setUcUserName ] = useState( '' );
   const inputRef = useRef<HTMLInputElement>( null );
 
-  function handleUpdateText( event: ChangeEvent<HTMLInputElement> ) {
+  function handleUpdateText( event: ChangeEvent<HTMLInputElement> ): void {
     setUserName( event.currentTarget.value );
   }
 
-  function handleButtonClick() {
+  function handleButtonClick(): void {
     /*
     if ( inputRef.current ) {
       console.log(
@@ -34,6 +34,8 @@ export default function FormWidgets( {
       'Current value of the uncontrolled component: ',
       inputRef.current?.value,
     );
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     inputRef.current?.value && setUcUserName( inputRef.current?.value );
   }
 

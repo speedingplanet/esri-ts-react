@@ -3,7 +3,7 @@ import React, { ChangeEventHandler, ReactElement, useState } from 'react';
 export default function ComponentCommunication(): ReactElement {
   const [ siblingMessage, setSiblingMessage ] = useState( '' );
 
-  const handleTellParent = ( message: string ) => {
+  const handleTellParent = ( message: string ): void => {
     setSiblingMessage( message );
   };
 

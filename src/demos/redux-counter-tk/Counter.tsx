@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { ActionCreator, AnyAction } from 'redux';
 
-interface CounterProps {
+export interface CounterProps {
   value: number;
   increment: ActionCreator<AnyAction>;
   decrement: ActionCreator<AnyAction>;

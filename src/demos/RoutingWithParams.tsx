@@ -34,7 +34,9 @@ export default function RoutingWithParams(): ReactElement {
   );
 }
 
-type FruitParams = { fruit: string };
+interface FruitParams {
+  fruit: string;
+}
 
 function FruitRoute(): ReactElement {
   const { fruit } = useParams<FruitParams>();

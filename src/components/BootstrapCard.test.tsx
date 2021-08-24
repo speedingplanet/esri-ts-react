@@ -57,7 +57,7 @@ describe( 'BootstrapCard', () => {
 
   it( 'should counter-test', () => {
     let testTitle = 'testTitle';
-    let { getByText, queryByText } = render(
+    let { queryByText } = render(
       <BootstrapCard title={testTitle}>
         <p>Who cares</p>
       </BootstrapCard>,

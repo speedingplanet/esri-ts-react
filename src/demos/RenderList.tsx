@@ -44,7 +44,7 @@ let originalShips = [
 export default function RenderList(): ReactElement {
   const [ ships, setShips ] = useState( originalShips );
 
-  const handleSortButton = () => {
+  const handleSortButton = (): void => {
     setShips( orderBy( ships, 'name', 'asc' ) );
   };
 

@@ -15,7 +15,7 @@ export default function ParentChildCommunication(): ReactElement {
 function Parent(): ReactElement {
   const [ message, setMessage ] = useState( '' );
 
-  function handleTellParent( input: string ) {
+  function handleTellParent( input: string ): void {
     console.log( 'Message from Child component: ', input );
     setMessage( input );
   }
@@ -37,7 +37,7 @@ interface ChildProps {
 }
 
 function Child( { foo, tellParent }: ChildProps ): ReactElement {
-  function handleButtonClick() {
+  function handleButtonClick(): void {
     tellParent( 'The button in the Child component was clicked.' );
   }
 

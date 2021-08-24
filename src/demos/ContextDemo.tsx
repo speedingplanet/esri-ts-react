@@ -7,13 +7,13 @@ const DemoContext = React.createContext( {
 } );
 
 export default class ContextDemo extends React.Component<
-  unknown,
-  { message: string; sendMessage: ( message: string ) => void }
+unknown,
+{ message: string; sendMessage: ( message: string ) => void }
 > {
   constructor( props: unknown ) {
     super( props );
 
-    const sendMessage = ( message: string ) => {
+    const sendMessage = ( message: string ): void => {
       this.setState( { message } );
     };
 
@@ -39,7 +39,7 @@ export default class ContextDemo extends React.Component<
   }
 }
 
-function Left() {
+function Left(): JSX.Element {
   return (
     <div>
       <h2>Left</h2>
@@ -48,7 +48,7 @@ function Left() {
   );
 }
 
-function LeftOne() {
+function LeftOne(): JSX.Element {
   return (
     <div>
       <h3>LeftOne</h3>
@@ -57,7 +57,7 @@ function LeftOne() {
   );
 }
 
-function LeftTwo() {
+function LeftTwo(): JSX.Element {
   return (
     <div>
       <h4>LeftTwo</h4>
@@ -70,7 +70,7 @@ function LeftTwo() {
 }
 
 // eslint-disable-next-line
-function LeftThree() {
+function LeftThree(): JSX.Element {
   return (
     <div>
       <h5>LeftThree</h5>
@@ -91,7 +91,7 @@ function LeftThree() {
 }
 
 // eslint-disable-next-line
-function LeftThreeHook() {
+function LeftThreeHook(): JSX.Element {
   const { sendMessage } = useContext( DemoContext );
   return (
     <div>
@@ -107,7 +107,7 @@ function LeftThreeHook() {
 }
 
 class LeftThreeClass extends React.Component {
-  render() {
+  render(): JSX.Element {
     const { sendMessage } = this.context;
     return (
       <div>
@@ -125,7 +125,7 @@ class LeftThreeClass extends React.Component {
 
 LeftThreeClass.contextType = DemoContext;
 
-function Right() {
+function Right(): JSX.Element {
   return (
     <div>
       <h2>Right</h2>
@@ -134,7 +134,7 @@ function Right() {
   );
 }
 
-function RightOne() {
+function RightOne(): JSX.Element {
   return (
     <div>
       <h3>RightOne</h3>
@@ -143,7 +143,7 @@ function RightOne() {
   );
 }
 
-function RightTwo() {
+function RightTwo(): JSX.Element {
   return (
     <div>
       <h4>RightTwo</h4>
@@ -152,7 +152,7 @@ function RightTwo() {
   );
 }
 
-function RightThree() {
+function RightThree(): JSX.Element {
   return (
     <div>
       <h5>RightThree</h5>

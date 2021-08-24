@@ -9,8 +9,9 @@ export default function AsyncEffect(): ReactElement {
   useEffect( () => {
     if ( nextUserId > 100 && nextUserId < 200 ) {
       fetch( `http://localhost:8000/api/zippay/v1/users/${nextUserId}` )
-        .then( ( response ) => response.json() )
-        .then( ( fetchedUser ) => setUser( fetchedUser ) );
+        .then( async( response ) => await response.json() )
+        .then( ( fetchedUser ) => setUser( fetchedUser ) )
+        .catch( ( err ) => console.error( err ) );
     }
 
     return () => {
@@ -24,16 +25,18 @@ export default function AsyncEffect(): ReactElement {
     <section>
       <div className="row">
         <div className="col">
-          {user ? (
-            <ul>
-              <li>Name: {user.displayName} </li>
-              <li>Email: {user.email} </li>
-              <li>City: {user.address.city} </li>
-              <li>State: {user.address.state} </li>
-            </ul>
-          ) : (
-            <p>No user yet</p>
-          )}
+          {user != null
+            ? (
+              <ul>
+                <li>Name: {user.displayName} </li>
+                <li>Email: {user.email} </li>
+                <li>City: {user.address.city} </li>
+                <li>State: {user.address.state} </li>
+              </ul>
+            )
+            : (
+              <p>No user yet</p>
+            )}
           <button
             className="btn btn-primary"
             onClick={() => setRefresh( !refresh )}
