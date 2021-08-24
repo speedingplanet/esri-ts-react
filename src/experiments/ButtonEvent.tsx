@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
 // function ButtonEventFn() {}
@@ -38,4 +39,44 @@ const ButtonEventInline = (): JSX.Element => {
   );
 };
 
-export default ButtonEvent;
+const ButtonClickTrack = (): JSX.Element => {
+  function handleButtonClick( initialValue: number ): void {
+    console.log( `You clicked on the button ${initialValue} times.` );
+  }
+
+  return (
+    <div>
+      <button
+        className="btn btn-secondary"
+        onClick={() => handleButtonClick( 5 )}
+      >
+        Click me
+      </button>
+    </div>
+  );
+};
+
+const ButtonClickEventObject = (): JSX.Element => {
+  function handleButtonClick( event: React.FormEvent<HTMLButtonElement> ): void {
+    console.log( 'Event: ', event );
+    console.log( 'Element that fired the event: ', event.currentTarget.disabled );
+    // console.log( 'Element that fired the event: ', event.target.disabled );
+  }
+
+  const handleButtonClick2: React.MouseEventHandler<HTMLButtonElement> = (
+    event,
+  ) => {
+    console.log( 'Event: ', event );
+    console.log( 'Element that fired the event: ', event.currentTarget.disabled );
+  };
+
+  return (
+    <div>
+      <button className="btn btn-secondary" onClick={handleButtonClick}>
+        Click me
+      </button>
+    </div>
+  );
+};
+
+export default ButtonClickEventObject;
