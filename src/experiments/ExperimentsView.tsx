@@ -4,6 +4,7 @@ import ButtonEvent from './ButtonEvent';
 import HelloWorld from './HelloWorld';
 import HelloWorldProps from './HelloWorldProps';
 import LiveGreeter from './LiveGreeter';
+import LiveGreeterClass from './LiveGreeterClass';
 import MinimalState from './MinimalState';
 
 export default function ExperimentsView(): JSX.Element {
@@ -40,6 +41,11 @@ export default function ExperimentsView(): JSX.Element {
                   State and Input
                 </Link>
               </li>
+              <li>
+                <Link to="/experiments/controlled-component-class">
+                  State and Input (class)
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
@@ -59,6 +65,9 @@ export default function ExperimentsView(): JSX.Element {
           </Route>
           <Route path="/experiments/controlled-component">
             <LiveGreeter />
+          </Route>
+          <Route path="/experiments/controlled-component-class">
+            <LiveGreeterClass />
           </Route>
         </div>
       </div>

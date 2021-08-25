@@ -54,7 +54,7 @@ function SiblingOne( { tellParent }: SiblingOneProps ): ReactElement {
         <h4>Sibling One</h4>
       </div>
       <div className="card-body">
-        <div className="form-group">
+        <div className="form-group mb-2">
           <label htmlFor="message-box">Send a message from here:</label>
           <input
             type="text"
