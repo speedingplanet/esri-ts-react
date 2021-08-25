@@ -3,6 +3,8 @@ import { Route, Link } from 'react-router-dom';
 import ButtonEvent from './ButtonEvent';
 import HelloWorld from './HelloWorld';
 import HelloWorldProps from './HelloWorldProps';
+import LiveGreeter from './LiveGreeter';
+import MinimalState from './MinimalState';
 
 export default function ExperimentsView(): JSX.Element {
   return (
@@ -30,6 +32,14 @@ export default function ExperimentsView(): JSX.Element {
               <li>
                 <Link to="/experiments/button-event">Event Handling</Link>
               </li>
+              <li>
+                <Link to="/experiments/minimal-state">Minimal State</Link>
+              </li>
+              <li>
+                <Link to="/experiments/controlled-component">
+                  State and Input
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
@@ -43,6 +53,12 @@ export default function ExperimentsView(): JSX.Element {
           </Route>
           <Route path="/experiments/button-event">
             <ButtonEvent />
+          </Route>
+          <Route path="/experiments/minimal-state">
+            <MinimalState />
+          </Route>
+          <Route path="/experiments/controlled-component">
+            <LiveGreeter />
           </Route>
         </div>
       </div>
