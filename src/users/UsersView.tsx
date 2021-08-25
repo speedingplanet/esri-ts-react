@@ -3,7 +3,7 @@ import { Link, Route } from 'react-router-dom';
 import AddUser from './AddUser';
 import BrowseUsers from './BrowseUsers';
 import FindUsers from './FindUsers';
-import { User, UserType } from '@speedingplanet/rest-server';
+import { User } from '@speedingplanet/rest-server';
 
 export type UserProfile = Pick<User, 'displayName' | 'address' | 'userType'>;
 
