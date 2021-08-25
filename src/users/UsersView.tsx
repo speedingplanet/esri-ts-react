@@ -3,8 +3,22 @@ import { Link, Route } from 'react-router-dom';
 import AddUser from './AddUser';
 import BrowseUsers from './BrowseUsers';
 import FindUsers from './FindUsers';
+import { User, UserType } from '@speedingplanet/rest-server';
+
+export type UserProfile = Pick<User, 'displayName' | 'address' | 'userType'>;
 
 export default function UsersView(): JSX.Element {
+  const handleSearchDisplayName = ( displayName: string ) => {
+    console.log( `UsersView: Searching on "${displayName}"` );
+  };
+
+  const handleCreateUser = ( user: UserProfile ) => {
+    console.log(
+      // eslint-disable-next-line max-len
+      `Creating a user ${user.displayName} who lives in ${user.address.city}, ${user.address.state}`,
+    );
+  };
+
   return (
     <>
       {/* <React.Fragment> */}
@@ -31,10 +45,10 @@ export default function UsersView(): JSX.Element {
         </div>
       </section>
       <Route path="/users/add">
-        <AddUser />
+        <AddUser createUser={handleCreateUser} />
       </Route>
       <Route path="/users/find">
-        <FindUsers />
+        <FindUsers searchDisplayName={handleSearchDisplayName} />
       </Route>
       <Route path="/users/browse">
         <BrowseUsers />

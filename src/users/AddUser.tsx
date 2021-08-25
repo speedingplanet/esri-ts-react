@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { UserProfile } from './UsersView';
+import lodashSet from 'lodash/set';
+// import { set as lodashSet } from 'lodash';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 enum Country {
@@ -8,46 +11,35 @@ enum Country {
   MX,
 }
 
-type CountryType = 'USA' | 'CAN' | 'UK' | 'MX';
-type UserType = 'person' | 'corporate';
-
-interface AddUserState {
-  displayName: string;
-  street: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  // country: Country;
-  country: CountryType;
-  userType: UserType;
-}
-
-const initialState: AddUserState = {
+const initialState: UserProfile = {
   displayName: '',
-  street: '',
-  city: '',
-  state: '',
-  postalCode: '',
-  country: 'USA',
   userType: 'person',
+  address: {
+    street: '',
+    city: '',
+    state: '',
+    postalCode: '',
+  },
 };
 
-const AddUser = (): JSX.Element => {
-  const [ formState, setFormState ] = useState<AddUserState>( initialState );
+interface AddUserProps {
+  createUser: ( user: UserProfile ) => void;
+}
+
+const AddUser = ( { createUser }: AddUserProps ): JSX.Element => {
+  const [ formState, setFormState ] = useState<UserProfile>( initialState );
 
   const updateFormState: React.FormEventHandler<
   HTMLInputElement | HTMLSelectElement
   > = ( event ) => {
     const field = event.currentTarget;
-    setFormState( {
-      ...formState,
-      [field.name]: field.value,
-    } );
+    const updatedState = { ...formState };
+    lodashSet( updatedState, field.name, field.value );
+    setFormState( updatedState );
   };
 
   const handleClick = () => {
-    console.log( 'Runs when the submit button is clicked.' );
-    console.log( 'FormState: ', formState );
+    createUser( formState );
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = ( event ) => {
@@ -78,29 +70,30 @@ const AddUser = (): JSX.Element => {
         />
       </div>
       <TextInput
-        fieldValue={formState.street}
+        fieldValue={formState.address.street}
         changeInput={updateFormState}
         label="Street"
-        fieldName="street"
+        fieldName="address.street"
       />
       <TextInput
-        fieldValue={formState.city}
+        fieldValue={formState.address.city}
         changeInput={updateFormState}
         label="City"
-        fieldName="city"
+        fieldName="address.city"
       />
       <TextInput
-        fieldValue={formState.state}
+        fieldValue={formState.address.state}
         changeInput={updateFormState}
         label="State"
-        fieldName="state"
+        fieldName="address.state"
       />
       <TextInput
-        fieldValue={formState.postalCode}
+        fieldValue={formState.address.postalCode}
         changeInput={updateFormState}
         label="Postal Code"
-        fieldName="postalCode"
+        fieldName="address.postalCode"
       />
+      {/*
       <div className="mb-3">
         <label htmlFor="country" className="form-label">
           Country
@@ -119,6 +112,7 @@ const AddUser = (): JSX.Element => {
           <option value="MX">Mexico</option>
         </select>
       </div>
+      */}
       <div className="mb-3">
         <div className="form-check">
           <input

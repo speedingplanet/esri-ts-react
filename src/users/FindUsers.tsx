@@ -1,17 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const FindUsers = () => {
+interface FindUsersProps {
+  searchDisplayName: ( displayName: string ) => void;
+}
+
+const FindUsers = ( { searchDisplayName }: FindUsersProps ) => {
+  const [ searchText, setSearchText ] = useState( '' );
+
   return (
-    <div>
-      <h3>Find Users</h3>
-      <p>To be completed later</p>
-      <button
-        className="btn btn-lg btn-success"
-        onClick={() => console.log( 'Searching for users' )}
-      >
-        Find users
-      </button>
-    </div>
+    <section>
+      <div className="row">
+        <div className="col">
+          <h3>Find Users</h3>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <div className="mb-2">
+            <label htmlFor="searchField" className="form-label">
+              Enter a display name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="searchField"
+              name="searchField"
+              value={searchText}
+              onInput={( event ) => setSearchText( event.currentTarget.value )}
+            />
+          </div>
+          <div>
+            <button
+              className="btn btn-info"
+              onClick={() => searchDisplayName( searchText )}
+            >
+              Find Users
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
