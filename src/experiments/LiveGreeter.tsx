@@ -18,7 +18,7 @@ const LiveGreeter = () => {
         onInput={handleUpdate}
         value={name}
       />
-      {name.length > 2 ? <p>Greetings, {name}</p> : <p></p>}
+      {name.length >= 2 ? <p>Greetings, {name}</p> : <p></p>}
     </div>
   );
 };
