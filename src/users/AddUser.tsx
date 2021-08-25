@@ -35,9 +35,6 @@ const initialState: AddUserState = {
 const AddUser = (): JSX.Element => {
   const [ formState, setFormState ] = useState<AddUserState>( initialState );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const getFormData = ( form: HTMLFormElement ) => {};
-
   const updateFormState: React.FormEventHandler<
   HTMLInputElement | HTMLSelectElement
   > = ( event ) => {
@@ -53,9 +50,15 @@ const AddUser = (): JSX.Element => {
     console.log( 'FormState: ', formState );
   };
 
-  const handleSubmit: React.FormEventHandler = ( event ) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = ( event ) => {
     console.log( 'Runs when the submit EVENT happens' );
-    console.log( 'FormState: ', formState );
+    const data = new FormData( event.currentTarget );
+
+    // @ts-expect-error
+    for ( let [ key, value ] of data.entries() ) {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      console.log( `${key} : ${value}` );
+    }
     event.preventDefault();
   };
 
@@ -70,7 +73,7 @@ const AddUser = (): JSX.Element => {
           className="form-control"
           id="displayName"
           name="displayName"
-          value={formState?.displayName}
+          value={formState.displayName}
           onInput={updateFormState}
         />
       </div>
