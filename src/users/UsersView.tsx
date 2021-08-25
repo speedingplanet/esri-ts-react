@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import AddUser from './AddUser';
+import BrowseUsers from './BrowseUsers';
+import FindUsers from './FindUsers';
 
 export default function UsersView(): JSX.Element {
   return (
@@ -19,10 +21,10 @@ export default function UsersView(): JSX.Element {
                 <Link to="/users/add">Add a user</Link> |
               </li>
               <li className="list-inline-item">
-                <Link to="/">Find users</Link> |
+                <Link to="/users/find">Find users</Link> |
               </li>
               <li className="list-inline-item">
-                <Link to="/">Browse users</Link>
+                <Link to="/users/browse">Browse users</Link>
               </li>
             </ul>
           </div>
@@ -30,6 +32,12 @@ export default function UsersView(): JSX.Element {
       </section>
       <Route path="/users/add">
         <AddUser />
+      </Route>
+      <Route path="/users/find">
+        <FindUsers />
+      </Route>
+      <Route path="/users/browse">
+        <BrowseUsers />
       </Route>
     </> /* </React.Fragment> */
   );
