@@ -5,6 +5,7 @@ import { increment, decrement, ReduxState } from './counter-slice';
 
 // mapReduxStateToReactProps
 const mapStateToProps = ( state: ReduxState ): { value: ReduxState } => ( {
+  // React prop : Redux state
   value: state,
 } );
 
@@ -27,6 +28,7 @@ So there is no real fix for this particular issue.
 const mapDispatchToProps = (
   dispatch: Dispatch,
 ): Omit<CounterProps, 'value'> => ( {
+  // React event prop : Dispatch to Redux
   increment: () => dispatch( increment() ),
   decrement: () => dispatch( decrement() ),
 } );

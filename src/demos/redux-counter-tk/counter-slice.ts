@@ -13,7 +13,7 @@ const counterSlice = createSlice( {
 export const store = configureStore( {
   reducer: counterSlice.reducer,
 } );
+export type ReduxState = ReturnType<typeof reducer>;
 
 const { actions, reducer } = counterSlice;
-export type ReduxState = ReturnType<typeof reducer>;
 export const { increment, decrement } = actions;
