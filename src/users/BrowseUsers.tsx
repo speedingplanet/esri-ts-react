@@ -1,5 +1,6 @@
 import React from 'react';
 import { users } from '@speedingplanet/rest-server';
+import UsersGrid, { Column } from './UsersGrid';
 
 /*
 <table className="table table-striped table-hover">
@@ -22,29 +23,27 @@ import { users } from '@speedingplanet/rest-server';
 </table>
 */
 
+const columnConfig: Column[] = [
+  {
+    field: 'displayName',
+    label: 'Display Name',
+  },
+  {
+    field: 'userType',
+    label: 'Type',
+  },
+  {
+    field: 'address.city',
+    label: 'City',
+  },
+  {
+    field: 'address.state',
+    label: 'State',
+  },
+];
+
 const BrowseUsers = () => {
-  return (
-    <table className="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>Display Name</th>
-          <th>Type</th>
-          <th>City</th>
-          <th>State</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map( ( user ) => (
-          <tr key={user.id}>
-            <td>{user.displayName}</td>
-            <td>{user.userType}</td>
-            <td>{user.address.city}</td>
-            <td>{user.address.state}</td>
-          </tr>
-        ) )}
-      </tbody>
-    </table>
-  );
+  return <UsersGrid users={users} columns={columnConfig} />;
 };
 
 export default BrowseUsers;
