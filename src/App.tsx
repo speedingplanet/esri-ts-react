@@ -4,6 +4,7 @@ import DemosView from './demos/DemosView';
 import ExperimentsView from './experiments/ExperimentsView';
 import TransactionsView from './transactions/TransactionsView';
 import UsersView from './users/UsersView';
+import UsersViewContext from './users/UsersViewContext';
 
 // class -> className
 // for -> htmlFor (<label>)
@@ -28,6 +29,9 @@ function App(): JSX.Element {
                 <Link to="/users">Users</Link>
               </li>
               <li className="list-inline-item">
+                <Link to="/users-context">Users (context and reducer)</Link>
+              </li>
+              <li className="list-inline-item">
                 <Link to="/transactions">Transactions</Link>
               </li>
               <li className="list-inline-item">
@@ -41,6 +45,9 @@ function App(): JSX.Element {
         </Route>
         <Route path="/users">
           <UsersView />
+        </Route>
+        <Route path="/users-context">
+          <UsersViewContext />
         </Route>
         <Route path="/transactions">
           <TransactionsView />
