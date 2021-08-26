@@ -1,10 +1,11 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { Link, Route } from 'react-router-dom';
 import AddUser from './AddUserContext';
 import BrowseUsers from './BrowseUsers';
 import FindUsers from './FindUsersContext';
-import { User, users } from '@speedingplanet/rest-server';
+import { User } from '@speedingplanet/rest-server';
 import { AnyAction } from '@reduxjs/toolkit';
+import dao from './users-dao';
 
 export type UserProfile = Pick<User, 'displayName' | 'address' | 'userType'>;
 
@@ -13,6 +14,8 @@ export type UserProfile = Pick<User, 'displayName' | 'address' | 'userType'>;
 interface UsersContextProps {
   dispatch: ( field: string, value: any ) => void;
   users: User[];
+  isLoading?: boolean;
+  requestError?: Error | null;
   searchTerm: string;
 }
 
@@ -25,9 +28,15 @@ export const UsersContext = React.createContext<UsersContextProps>( {
 function reducer( state: UsersContextProps, action: AnyAction ) {
   switch ( action.type ) {
   case 'ADD_USER':
-    return { ...state, users: [ ...users, action.payload ] };
+    return { ...state, users: [ ...state.users, action.payload ] };
   case 'FIND_USERS':
     return { ...state, searchTerm: action.payload };
+  case 'LOAD_USERS_START':
+    return { ...state, isLoading: true, requestError: null };
+  case 'LOAD_USERS_ERROR':
+    return { ...state, requestError: action.payload, isLoading: false };
+  case 'LOAD_USERS_SUCCESS':
+    return { ...state, users: action.payload, isLoading: false };
   default:
     throw new Error( 'Missed case!' );
   }
@@ -39,18 +48,28 @@ const actionCreator = ( type: string, payload: any ) => ( {
 } );
 
 const initialState: UsersContextProps = {
-  users,
+  users: [],
   searchTerm: '',
+  isLoading: false,
+  requestError: null,
   dispatch: () => null,
 };
 
 export default function UsersViewContext(): JSX.Element {
   const [ state, dispatch ] = useReducer( reducer, initialState );
-  console.log( 'State is: ', state );
 
-  const handleSearchDisplayName = ( displayName: string ) => {
-    console.log( `UsersView: Searching on "${displayName}"` );
-  };
+  useEffect( () => {
+    // fetch the users
+    dispatch( { type: 'LOAD_USERS_START' } );
+    dao
+      .fetchUsers()
+      .then( ( users ) => dispatch( { type: 'LOAD_USERS_SUCCESS', payload: users } ) )
+      .catch( ( err ) => {
+        dispatch( { type: 'LOAD_USERS_ERROR', payload: err } );
+        console.error( 'Failed to fetch or process users: ', err );
+      } );
+    // dispatch new users to the reducer
+  }, [] );
 
   const definedContext: UsersContextProps = {
     users: state.users,
