@@ -18,6 +18,9 @@ export default function EffectHook(): JSX.Element {
   useEffect( () => {
     console.log( 'Effect: runs once' );
     setOneTimeEffect( Date.now() );
+    return () => {
+      console.log( 'This will run when the component is destroyed.' );
+    };
   }, [] );
 
   useEffect( () => {

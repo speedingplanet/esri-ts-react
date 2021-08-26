@@ -9,7 +9,8 @@ export default function AsyncEffect(): ReactElement {
   useEffect( () => {
     if ( nextUserId > 100 && nextUserId < 200 ) {
       fetch( `http://localhost:8000/api/zippay/v1/users/${nextUserId}` )
-        .then( async( response ) => await response.json() )
+        // eslint-disable-next-line @typescript-eslint/promise-function-async
+        .then( ( response ) => response.json() )
         .then( ( fetchedUser ) => setUser( fetchedUser ) )
         .catch( ( err ) => console.error( err ) );
     }
