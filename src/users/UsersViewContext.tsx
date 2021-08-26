@@ -2,65 +2,64 @@ import React, { useReducer } from 'react';
 import { Link, Route } from 'react-router-dom';
 import AddUser from './AddUserContext';
 import BrowseUsers from './BrowseUsers';
-import FindUsers from './FindUsers';
-import { User } from '@speedingplanet/rest-server';
+import FindUsers from './FindUsersContext';
+import { User, users } from '@speedingplanet/rest-server';
 import { AnyAction } from '@reduxjs/toolkit';
 
 export type UserProfile = Pick<User, 'displayName' | 'address' | 'userType'>;
 
-const initialState: UserProfile = {
-  displayName: '',
-  userType: 'person',
-  address: {
-    street: '',
-    city: '',
-    state: '',
-    postalCode: '',
-  },
-};
+// export const MyContext = React.createContext( null );
 
-export const UsersContext = React.createContext<{
-  user: UserProfile;
-  dispatch: ( field: string, value: string ) => void;
-}>( { user: initialState, dispatch: () => null } );
+interface UsersContextProps {
+  dispatch: ( field: string, value: any ) => void;
+  users: User[];
+  searchTerm: string;
+}
 
-function reducer( state: UserProfile, action: AnyAction ) {
+export const UsersContext = React.createContext<UsersContextProps>( {
+  users: [],
+  searchTerm: '',
+  dispatch: () => null,
+} );
+
+function reducer( state: UsersContextProps, action: AnyAction ) {
   switch ( action.type ) {
-  case 'displayName':
-  case 'userType':
-    return { ...state, [action.type]: action.payload };
-  case 'street':
-  case 'city':
-  case 'state':
-  case 'postalCode':
-    return {
-      ...state,
-      address: { ...state.address, [action.type]: action.payload },
-    };
+  case 'ADD_USER':
+    return { ...state, users: [ ...users, action.payload ] };
+  case 'FIND_USERS':
+    return { ...state, searchTerm: action.payload };
   default:
     throw new Error( 'Missed case!' );
   }
 }
 
-const actionCreator = ( type: string, payload: string ) => ( {
+const actionCreator = ( type: string, payload: any ) => ( {
   type,
   payload,
 } );
 
-export default function UsersView(): JSX.Element {
+const initialState: UsersContextProps = {
+  users,
+  searchTerm: '',
+  dispatch: () => null,
+};
+
+export default function UsersViewContext(): JSX.Element {
   const [ state, dispatch ] = useReducer( reducer, initialState );
+  console.log( 'State is: ', state );
 
   const handleSearchDisplayName = ( displayName: string ) => {
     console.log( `UsersView: Searching on "${displayName}"` );
   };
 
+  const definedContext: UsersContextProps = {
+    users: state.users,
+    searchTerm: state.searchTerm,
+    dispatch: ( field, value ) => dispatch( actionCreator( field, value ) ),
+  };
+
   return (
-    <UsersContext.Provider
-      value={{
-        user: state,
-        dispatch: ( field, value ) => dispatch( actionCreator( field, value ) ),
-      }}
-    >
+    <UsersContext.Provider value={definedContext}>
       <section>
         <div className="row">
           <div className="col">
@@ -71,25 +70,25 @@ export default function UsersView(): JSX.Element {
           <div className="col">
             <ul className="list-inline">
               <li className="list-inline-item">
-                <Link to="/users/add">Add a user</Link> |
+                <Link to="/users-context/add">Add a user</Link> |
               </li>
               <li className="list-inline-item">
-                <Link to="/users/find">Find users</Link> |
+                <Link to="/users-context/find">Find users</Link> |
               </li>
               <li className="list-inline-item">
-                <Link to="/users/browse">Browse users</Link>
+                <Link to="/users-context/browse">Browse users</Link>
               </li>
             </ul>
           </div>
         </div>
       </section>
-      <Route path="/users/add">
+      <Route path="/users-context/add">
         <AddUser />
       </Route>
-      <Route path="/users/find">
-        <FindUsers searchDisplayName={handleSearchDisplayName} />
+      <Route path="/users-context/find">
+        <FindUsers />
       </Route>
-      <Route path="/users/browse">
+      <Route path="/users-context/browse">
         <BrowseUsers />
       </Route>
     </UsersContext.Provider>

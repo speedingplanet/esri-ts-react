@@ -1,6 +1,6 @@
-import React from 'react';
-import { users } from '@speedingplanet/rest-server';
+import React, { useContext } from 'react';
 import UsersGrid, { Column } from './UsersGrid';
+import { UsersContext } from './UsersViewContext';
 
 /*
 <table className="table table-striped table-hover">
@@ -43,7 +43,8 @@ const columnConfig: Column[] = [
 ];
 
 const BrowseUsers = () => {
-  return <UsersGrid users={users} columns={columnConfig} />;
+  const context = useContext( UsersContext );
+  return <UsersGrid users={context.users} columns={columnConfig} />;
 };
 
 export default BrowseUsers;

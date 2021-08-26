@@ -28,6 +28,7 @@ interface AddUserProps {
 
 const AddUser = ( { createUser }: AddUserProps ): JSX.Element => {
   const [ formState, setFormState ] = useState<UserProfile>( initialState );
+  const [ userAdded, setUserAdded ] = useState( false );
 
   const updateFormState: React.FormEventHandler<
   HTMLInputElement | HTMLSelectElement
@@ -35,11 +36,13 @@ const AddUser = ( { createUser }: AddUserProps ): JSX.Element => {
     const field = event.currentTarget;
     const updatedState = { ...formState };
     lodashSet( updatedState, field.name, field.value );
+    if ( userAdded ) setUserAdded( false );
     setFormState( updatedState );
   };
 
   const handleClick = () => {
     createUser( formState );
+    setUserAdded( true );
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = ( event ) => {
@@ -141,9 +144,15 @@ const AddUser = ( { createUser }: AddUserProps ): JSX.Element => {
         </div>
       </div>
       <div className="mb-3">
-        <button className="btn btn-success" type="submit" onClick={handleClick}>
+        <button
+          className="btn btn-success"
+          type="submit"
+          onClick={handleClick}
+          disabled={userAdded}
+        >
           Add User
         </button>
+        <p hidden={!userAdded}>User successfully added</p>
       </div>
     </form>
   );

@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { UserProfile } from './UsersView';
-import { AnyAction } from '@reduxjs/toolkit';
+import { Address } from '@speedingplanet/rest-server';
 
 interface AddUserProps {
   createUser: ( user: UserProfile ) => void;
@@ -14,7 +14,14 @@ enum Country {
   MX,
 }
 
-function reducer( state: UserProfile, action: AnyAction ) {
+type UserReducerFields = keyof Omit<UserProfile, 'address'> | keyof Address;
+
+interface UserAction {
+  type: UserReducerFields;
+  payload: string;
+}
+
+function reducer( state: UserProfile, action: UserAction ) {
   switch ( action.type ) {
   case 'displayName':
   case 'userType':
@@ -32,7 +39,15 @@ function reducer( state: UserProfile, action: AnyAction ) {
   }
 }
 
-const actionCreator = ( type: string, payload: string ) => ( {
+/*
+const firstName = 'John';
+const person = {
+  // firstName: firstName,
+  firstName,
+};
+*/
+
+const actionCreator = ( type: UserReducerFields, payload: string ) => ( {
   type,
   payload,
 } );
@@ -70,7 +85,11 @@ const AddUser = ( { createUser }: AddUserProps ): JSX.Element => {
           name="displayName"
           value={state.displayName}
           onInput={( event ) =>
-            dispatch( actionCreator( 'displayName', event.currentTarget.value ) )
+            // dispatch( actionCreator( 'displayName', event.currentTarget.value ) )
+            dispatch( {
+              type: 'displayName',
+              payload: event.currentTarget.value,
+            } )
           }
         />
       </div>
