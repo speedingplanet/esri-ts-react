@@ -57,6 +57,7 @@ module.exports = {
     ],
     '@typescript-eslint/explicit-function-return-type': [ 'off' ],
     '@typescript-eslint/promise-function-async': [ 'off' ],
+    'no-void': [ 'off' ],
   },
   ignorePatterns: [ 'node_modules' ],
 };
