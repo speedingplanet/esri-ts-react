@@ -24,10 +24,26 @@ import { users } from '@speedingplanet/rest-server';
 
 const BrowseUsers = () => {
   return (
-    <div>
-      <h3>Browse users</h3>
-      <p>To be completed later</p>
-    </div>
+    <table className="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Display Name</th>
+          <th>Type</th>
+          <th>City</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map( ( user ) => (
+          <tr key={user.id}>
+            <td>{user.displayName}</td>
+            <td>{user.userType}</td>
+            <td>{user.address.city}</td>
+            <td>{user.address.state}</td>
+          </tr>
+        ) )}
+      </tbody>
+    </table>
   );
 };
 
