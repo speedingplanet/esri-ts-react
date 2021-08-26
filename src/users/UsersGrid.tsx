@@ -42,7 +42,7 @@ const UsersGridRow = ( { user, columns }: GridRowProps ) => {
   return (
     <div className="flex-row">
       {columns.map( ( { field } ) => (
-        <div id={field} className="flex-cell">
+        <div key={field} className="flex-cell">
           {lodashGet( user, field )}
         </div>
       ) )}
