@@ -24,9 +24,10 @@ const initialState: UserProfile = {
 
 interface AddUserProps {
   createUser: ( user: UserProfile ) => void;
+  buttonDisabled: boolean;
 }
 
-const AddUser = ( { createUser }: AddUserProps ): JSX.Element => {
+const AddUser = ( { createUser, buttonDisabled }: AddUserProps ): JSX.Element => {
   const [ formState, setFormState ] = useState<UserProfile>( initialState );
   const [ userAdded, setUserAdded ] = useState( false );
 
@@ -148,11 +149,10 @@ const AddUser = ( { createUser }: AddUserProps ): JSX.Element => {
           className="btn btn-success"
           type="submit"
           onClick={handleClick}
-          disabled={userAdded}
+          disabled={buttonDisabled}
         >
           Add User
         </button>
-        <p hidden={!userAdded}>User successfully added</p>
       </div>
     </form>
   );

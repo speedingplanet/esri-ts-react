@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useReducer, useEffect } from 'react';
 import { Link, Route } from 'react-router-dom';
 import AddUser from './AddUserContext';
@@ -17,6 +18,7 @@ interface UsersContextProps {
   isLoading?: boolean;
   requestError?: Error | null;
   searchTerm: string;
+  newUser?: UserProfile;
 }
 
 export const UsersContext = React.createContext<UsersContextProps>( {
@@ -28,15 +30,25 @@ export const UsersContext = React.createContext<UsersContextProps>( {
 function reducer( state: UsersContextProps, action: AnyAction ) {
   switch ( action.type ) {
   case 'ADD_USER':
-    return { ...state, users: [ ...state.users, action.payload ] };
+    return {
+      ...state,
+      users: [ ...state.users, action.payload ],
+      newUser: action.payload,
+    };
   case 'FIND_USERS':
     return { ...state, searchTerm: action.payload };
   case 'LOAD_USERS_START':
+  case 'PERSIST_NEW_USER_START':
     return { ...state, isLoading: true, requestError: null };
+  case 'PERSIST_NEW_USER_ERROR':
   case 'LOAD_USERS_ERROR':
     return { ...state, requestError: action.payload, isLoading: false };
   case 'LOAD_USERS_SUCCESS':
     return { ...state, users: action.payload, isLoading: false };
+  case 'PERSIST_NEW_USER_SUCCESS':
+    console.log( 'PERSIST_NEW_USER_SUCCESS payload: ', action.payload );
+    // TODO: Replace temp user added in ADD_USER with updated user from the payload
+    return { ...state, isLoading: false };
   default:
     throw new Error( 'Missed case!' );
   }
@@ -55,21 +67,52 @@ const initialState: UsersContextProps = {
   dispatch: () => null,
 };
 
+function getUsersPromise( dispatch: React.Dispatch<AnyAction> ) {
+  // fetch the users
+  dispatch( { type: 'LOAD_USERS_START' } );
+  dao
+    .fetchUsers()
+    .then( ( users ) => dispatch( { type: 'LOAD_USERS_SUCCESS', payload: users } ) )
+    .catch( ( err ) => {
+      dispatch( { type: 'LOAD_USERS_ERROR', payload: err } );
+      console.error( 'Failed to fetch or process users: ', err );
+    } );
+  // dispatch new users to the reducer
+}
+
+async function getUsersAsync( dispatch: React.Dispatch<AnyAction> ) {
+  dispatch( { type: 'LOAD_USERS_START' } );
+  try {
+    let users = await dao.fetchUsers();
+    dispatch( { type: 'LOAD_USERS_SUCCESS', payload: users } );
+  } catch ( err ) {
+    dispatch( { type: 'LOAD_USERS_ERROR', payload: err } );
+    console.error( 'Failed to fetch or process users: ', err );
+  }
+}
+
 export default function UsersViewContext(): JSX.Element {
   const [ state, dispatch ] = useReducer( reducer, initialState );
 
+  // useEffect( () => getUsersPromise( dispatch ), [] );
   useEffect( () => {
-    // fetch the users
-    dispatch( { type: 'LOAD_USERS_START' } );
-    dao
-      .fetchUsers()
-      .then( ( users ) => dispatch( { type: 'LOAD_USERS_SUCCESS', payload: users } ) )
-      .catch( ( err ) => {
-        dispatch( { type: 'LOAD_USERS_ERROR', payload: err } );
-        console.error( 'Failed to fetch or process users: ', err );
-      } );
-    // dispatch new users to the reducer
+    void getUsersAsync( dispatch );
   }, [] );
+
+  useEffect( () => {
+    dispatch( { type: 'PERSIST_NEW_USER_START' } );
+    if ( state.newUser != null ) {
+      dao
+        .addUser( state.newUser )
+        .then( ( user ) => {
+          dispatch( { type: 'PERSIST_NEW_USER_SUCCESS', payload: user } );
+        } )
+        .catch( ( err ) => {
+          dispatch( { type: 'PERSIST_NEW_USER_ERROR', payload: err } );
+          console.error( err );
+        } );
+    }
+  }, [ state.newUser ] );
 
   const definedContext: UsersContextProps = {
     users: state.users,
